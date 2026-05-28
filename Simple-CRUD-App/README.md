@@ -37,7 +37,7 @@ nodemon index.js
 
 3. **Setup Frontend:**
 ```
-   cd ../frontend
-   npm install
-   npm run dev
+cd ../frontend
+npm install
+npm run dev
 ```
