@@ -37,8 +37,9 @@ nodemon index.js
 ```
 
 3. **Setup Frontend:**
+Open a new terminal window, navigate to the frontend folder, install the packages, and launch the interface:
 ```
-cd ../frontend
+cd frontend
 npm install
 npm run dev
 ```
