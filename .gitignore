@@ -1,0 +1,13 @@
+# Ignore node_modules folders anywhere in the repository structure
+**/node_modules/
+
+# Ignore environment variables / secrets anywhere under any backend or frontend stack
+**/.env
+**/.env.local
+
+# Ignore system configuration files
+.DS_Store
+Thumbs.db
+
+# Ignore ALL local service and profile picture uploads deeply nested inside SSPMC
+**/backend/uploads/

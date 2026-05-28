@@ -1,0 +1,125 @@
+/* 1. Define Dynamic Tokens (Reuses the same system) */
+:root {
+    --bg-card: #ffffff;
+    --bg-surface: #f8f9fa;
+    --bg-hover: #f1f3f5;
+    --border-color: #dee2e6;
+    --text-main: #212529;
+    --text-muted: #6c757d;
+    
+    /* Theme Colors */
+    --primary-color: #0d6efd; /* For 'edit' or action buttons */
+    --danger-color: #dc3545;  /* For 'delete' buttons */
+    --success-light: #e8f5e9; /* Replaces rigid 'lightgreen' for a soft modern touch */
+    --success-text: #2e7d32;
+    
+    /* Layout & Shadow */
+    --radius: 10px;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    --transition: all 0.2s ease;
+}
+
+/* 2. Main Wrapper Card */
+.userTable {
+    width: 90%; /* Dynamic fallback for smaller devices */
+    max-width: 1000px; /* Prevents it from becoming awkwardly wide on huge monitors */
+    margin: 60px auto; /* Reduced from 120px for better vertical layout */
+    background-color: var(--bg-card);
+    padding: 30px; /* Optimized padding spacing */
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    color: var(--text-main);
+    font-family: system-ui, -apple-system, sans-serif;
+    
+    /* Makes the table horizontally scrollable if columns overflow on mobile */
+    overflow-x: auto; 
+}
+
+/* 3. The Table Element */
+.userTable table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse; /* Merges borders cleanly */
+    text-align: left; /* Modern standard: left-align text, center actions */
+}
+
+/* 4. Table Header (Modernized Lightgreen) */
+.userTable table thead th {
+    background-color: var(--success-light);
+    color: var(--success-text);
+    padding: 14px 16px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+/* First and last header corners stay rounded */
+.userTable table thead th:first-child { border-top-left-radius: 6px; }
+.userTable table thead th:last-child { border-top-right-radius: 6px; }
+
+/* 5. Table Body & Row Striping */
+.userTable table tbody tr {
+    border-bottom: 1px solid var(--border-color);
+    transition: var(--transition);
+}
+
+/* Subtle background alternating tint */
+.userTable table tbody tr:nth-child(even) {
+    background-color: var(--bg-surface);
+}
+
+/* Dynamic row hover effect */
+.userTable table tbody tr:hover {
+    background-color: var(--bg-hover);
+}
+
+.userTable table tbody td {
+    padding: 14px 16px;
+    vertical-align: middle;
+    font-size: 0.95rem;
+}
+
+/* 6. Dynamic Action Buttons */
+.actionButtons {
+    display: flex;
+    gap: 8px; /* Dynamic spacing instead of wide margins */
+    justify-content: flex-start; 
+}
+
+.actionButtons button {
+    padding: 6px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.85rem;
+    transition: var(--transition);
+}
+
+/* Targeted action states if your buttons use classes like .edit or .delete */
+.actionButtons button.edit:hover {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.actionButtons button.delete:hover {
+    background-color: var(--danger-color);
+    color: white;
+    border-color: var(--danger-color);
+}
+
+/* 7. No Data Fallback State */
+.noData {
+    margin-top: 30px;
+    padding: 40px;
+    text-align: center;
+    color: var(--text-muted);
+    font-style: italic;
+    background-color: var(--bg-surface);
+    border-radius: 6px;
+    border: 2px dashed var(--border-color);
+}
+

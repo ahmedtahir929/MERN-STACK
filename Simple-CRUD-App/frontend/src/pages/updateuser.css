@@ -1,0 +1,97 @@
+/* 1. Define Dynamic Tokens (Variables) */
+:root {
+    --bg-card: #ffffff;
+    --bg-input: #f8f9fa;
+    --border-color: #dee2e6;
+    --text-main: #212529;
+    --text-muted: #6c757d;
+    
+    /* Brand Colors (Update Theme) */
+    --primary-color: #0d6efd;
+    --primary-hover: #0b5ed7;
+    
+    /* Layout & Shadow */
+    --radius: 8px;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --transition: all 0.3s ease;
+}
+
+/* 2. Enhanced Card Styling */
+.updateUser {
+    background-color: var(--bg-card);
+    width: 90%; /* Dynamic fallback for mobile */
+    max-width: 400px; /* Limits size on desktop smoothly instead of strict % */
+    margin: 50px auto;
+    padding: 30px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    color: var(--text-main);
+    font-family: system-ui, -apple-system, sans-serif;
+    transition: var(--transition);
+}
+
+.updateUser:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+.updateUser h3 {
+    margin-top: 0; /* Cleared for better layout alignment */
+    margin-bottom: 25px;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+/* 3. Form Layout & Dynamic Inputs */
+.updateUserForm .inputGroup {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px; /* Spacing between groups */
+}
+
+.updateUserForm .inputGroup label {
+    margin-bottom: 6px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-muted);
+}
+
+.updateUserForm .inputGroup input {
+    padding: 10px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background-color: var(--bg-input);
+    font-size: 1rem;
+    outline: none;
+    transition: var(--transition);
+}
+
+/* Dynamic Focus State */
+.updateUserForm .inputGroup input:focus {
+    border-color: var(--primary-color);
+    background-color: var(--bg-card);
+    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.15);
+}
+
+/* 4. Dynamic Button Styling */
+.updateUserForm .inputGroup button {
+    margin-top: 15px;
+    padding: 12px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.updateUserForm .inputGroup button:hover {
+    background-color: var(--primary-hover);
+}
+
+.updateUserForm .inputGroup button:active {
+    transform: scale(0.98);
+}
