@@ -21,18 +21,23 @@ A foundational full-stack web application built using the MERN stack to demonstr
    cd Simple-CRUD-App
 
 2. **Setup Backend:**
+   ```bash
    cd backend
    npm install
-
-# Create a .env file with your MONGO_URI and PORT then run the command to run the server
-
+   ```
+**Note:Create a .env file with your MONGO_URI and PORT then run the command to run the server**
+Run with the node command:
+```
 node index.js
-
-# Or run the backend with nodemon
-
+```
+Or run the backend with nodemon
+```
 nodemon index.js
+```
 
 3. **Setup Frontend:**
+```
    cd ../frontend
    npm install
    npm run dev
+```
