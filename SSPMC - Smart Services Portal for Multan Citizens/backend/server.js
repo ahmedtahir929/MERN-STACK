@@ -22,10 +22,19 @@ connectDB();
 const app = express();
 
 // Configure CORS cleanly for Axios communication
+const allowedOrigins = [
+    'http://localhost:5173', // Local frontend during development
+    'https://sspmc.vercel.app', // Vercel deployed frontend
+];
 app.use(cors({
-    origin: `http://localhost:5173`, // Frontend application URL
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+            return callback(null, true);
+        }
+        callback(new Error('CORS policy does not allow access from this origin.'));
+    },
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true
+    credentials: true,
 }));
 app.use(express.json());
 app.use(passport.initialize());
