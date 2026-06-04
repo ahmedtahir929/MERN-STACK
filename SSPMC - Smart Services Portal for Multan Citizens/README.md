@@ -2,6 +2,8 @@
 
 SSPMC is a clean, modern web application built for the Multan district administration. It serves as a central digital directory that helps local citizens easily find, search, and manage important community places like **hospitals, restaurants, and public parks**.
 
+* [🚀 View Live Demo](https://sspmc.vercel.app/)
+
 ---
 
 ## 🌟 Main Features
