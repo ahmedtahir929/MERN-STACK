@@ -5,14 +5,18 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const CALLBACK_BASE_URL = (process.env.BACKEND_URL || `http://localhost:${process.env.PORT}`).replace(/\/$/, '');
+// Use explicit GOOGLE_CALLBACK_URL if provided (full callback), otherwise
+// build from BACKEND_URL (base) + callback path, with safe fallbacks.
+const explicitCallback = process.env.GOOGLE_CALLBACK_URL?.replace(/\/$/, '');
+const backendBase = (process.env.BACKEND_URL || `http://localhost:${process.env.PORT}`).replace(/\/$/, '');
+const CALLBACK_URL = explicitCallback || `${backendBase}/api/users/auth/google/callback`;
 
 passport.use(new GoogleStrategy({
-    clientID: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: `${CALLBACK_BASE_URL}/api/users/auth/google/callback`,
-    scope: ["profile", "email"]
-  },
+        clientID: process.env.GOOGLE_CLIENT_ID,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        callbackURL: CALLBACK_URL,
+        scope: ["profile", "email"]
+    },
   async (accessToken, refreshToken, profile, done) => {
     try {
         const email = profile.emails[0].value;
