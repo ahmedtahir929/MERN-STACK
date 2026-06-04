@@ -14,7 +14,7 @@ import NotFound from './pages/NotFound';
 
 // New Authentication Pages
 import Login from './pages/Login';
-import SignUp from './pages/SignUp';
+import Signup from './pages/Signup';
 import OauthSuccess from './pages/OauthSuccess';
 
 const App = () => {
