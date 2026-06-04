@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../utils/apiConfig';
 import { useNavigate } from 'react-router-dom';
 import GoogleAuthButton from './GoogleAuthButton';
 
@@ -30,8 +30,8 @@ const SignupForm = () => {
 
     setLoading(true);
     try {
-      const response = await axios.post(
-        'http://localhost:4000/api/users/signup',
+      const response = await api.post(
+        '/api/users/signup',
         {
           firstname: formData.firstname,
           lastname: formData.lastname,

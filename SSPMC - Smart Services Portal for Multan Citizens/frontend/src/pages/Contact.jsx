@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import axios from 'axios';
+import api from '../utils/apiConfig';
 import { toast } from 'react-toastify';
 import ContactForm from '../components/ContactForm';
 
@@ -11,8 +11,8 @@ const Contact = () => {
     try {
       setIsSubmitting(true);
 
-      const response = await axios.post(
-        'http://localhost:4000/api/contact/feedback',
+      const response = await api.post(
+        '/api/contact/feedback',
         formData,
       );
 

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
-import axiosInstance from 'axios'; 
+import api from '../utils/apiConfig';
 import {
   FaHospital,
   FaUtensils,
@@ -63,7 +63,7 @@ const Services = () => {
       try {
         setLoading(true);
         setError('');
-        const response = await axiosInstance.get('http://localhost:4000/api/services');
+        const response = await api.get('/api/services');
 
         const fetchedItems = response.data;
         setData({

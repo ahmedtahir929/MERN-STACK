@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import axios from 'axios';
+import api from '../utils/apiConfig';
 
 const AddService = ({ onAdd, onClose }) => {
   const [loading, setLoading] = useState(false);
@@ -61,8 +61,8 @@ const AddService = ({ onAdd, onClose }) => {
     }
 
     try {
-      const response = await axios.post(
-        'http://localhost:4000/api/services/add-service',
+      const response = await api.post(
+        '/api/services/add-service',
         submissionPayload,
         {
           headers: {

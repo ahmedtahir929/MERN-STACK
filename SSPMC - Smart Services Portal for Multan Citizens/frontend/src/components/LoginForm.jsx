@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../utils/apiConfig';
 import { useNavigate } from 'react-router-dom';
 import GoogleAuthButton from './GoogleAuthButton';
 
@@ -16,13 +16,13 @@ const LoginForm = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post(
-        'http://localhost:4000/api/users/login',
+      const response = await api.post(
+        '/api/users/login',
         { email, password },
       );
       if (response.data.token) {
         localStorage.setItem('token', response.data.token);
-        axios.defaults.headers.common['Authorization'] =
+        api.defaults.headers.common['Authorization'] =
           `Bearer ${response.data.token}`;
         
         // Fixed path targeting your application routes architecture layout
