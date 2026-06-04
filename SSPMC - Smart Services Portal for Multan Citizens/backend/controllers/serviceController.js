@@ -1,4 +1,5 @@
 import Service from "../models/Services.js";
+import { uploadBufferToCloudinary } from '../utils/cloudinaryUpload.js';
 
 // Create a new service entry (Hospital, Restaurant, or Park)
 export const createService = async (req, res) => {
@@ -11,9 +12,9 @@ export const createService = async (req, res) => {
       ? `${req.body.category.toLowerCase()}s`
       : "general";
 
-    // Extract file path if a file was uploaded via Multer
+    // Upload file to Cloudinary if present, otherwise honor a provided URL
     const imageUpload = req.file
-      ? `/uploads/${folderMapping}/${req.file.filename}`
+      ? (await uploadBufferToCloudinary(req.file.buffer, `sspmc/${folderMapping}`)).secure_url
       : null;
 
     // Structure location data safely from incoming inputs
@@ -28,7 +29,7 @@ export const createService = async (req, res) => {
     const newService = new Service({
       name,
       category,
-      imageUrl,
+      imageUrl: imageUpload ? null : imageUrl,
       imageUpload,
       location,
       rating: rating ? Number(rating) : 0,
@@ -104,13 +105,14 @@ export const updateService = async (req, res) => {
 
     // Handle conditional image variations safely (Fixed: Swapped undefined for explicit null)
     if (req.file) {
-      // Read category dynamically from either the incoming request or the pre-existing record item
       const finalCategory = req.body.category || service.category;
       const folderMapping = finalCategory
         ? `${finalCategory.toLowerCase().trim()}s`
         : "general";
 
-      service.imageUpload = `/uploads/${folderMapping}/${req.file.filename}`;
+      service.imageUpload = (
+        await uploadBufferToCloudinary(req.file.buffer, `sspmc/${folderMapping}`)
+      ).secure_url;
       service.imageUrl = null;
     } else if (imageUrl && imageUrl.trim() !== "" && imageUrl !== "undefined") {
       service.imageUrl = imageUrl.trim();

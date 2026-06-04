@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../utils/apiConfig';
 import { toast } from 'react-toastify';
 import { FiX, FiSave, FiInfo, FiUploadCloud, FiLink } from 'react-icons/fi';
 
@@ -68,8 +68,8 @@ const ServiceUpdatePanel = ({ serviceData, onClose, onUpdateSuccess }) => {
     }
 
     try {
-      const response = await axios.put(
-        `http://localhost:4000/api/services/update/service/${serviceData._id}`,
+      const response = await api.put(
+        `/api/services/update/service/${serviceData._id}`,
         updatePayload,
         {
           headers: {

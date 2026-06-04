@@ -1,12 +1,11 @@
 import express from "express";
 import passport from "passport";
-import multer from 'multer';
-import path from 'path';
 import jwt from "jsonwebtoken";
 import "../config/passport.js"; // Ensure passport config runs
 
 // Note the explicit .js extension on relative paths
 import { authenticate, authorize } from "../middleware/authMiddleware.js";
+import { upload } from "../middleware/uploadMiddleware.js";
 import {
   createUser,
   deleteUser,
@@ -19,33 +18,6 @@ import {
 } from "../controllers/userController.js";
 
 const userRouter = express.Router();
-
-// Configure the disk pipeline directory allocation parameters for structural storage mapping
-const avatarStorageEngine = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads/avatars/'); // Ensure this nested directory structure exists inside your backend folder path root
-  },
-  filename: (req, file, cb) => {
-    // Generate a unique timestamp slug identifier signature to eliminate duplicate file collisions
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    cb(null, `avatar-${uniqueSuffix}${path.extname(file.originalname)}`);
-  }
-});
-
-// Enforce image asset format validations filter rules
-const fileTypeFilter = (req, file, cb) => {
-  if (file.mimetype.startsWith('image/')) {
-    cb(null, true);
-  } else {
-    cb(new Error('Invalid asset specification. Only image mime streams are permitted.'), false);
-  }
-};
-
-const uploadAvatarParser = multer({ 
-  storage: avatarStorageEngine,
-  fileFilter: fileTypeFilter,
-  limits: { fileSize: 3 * 1024 * 1024 } // Optional limit rule barrier capped at 3 megabytes
-});
 
 // post endpoints
 userRouter.post("/signup", createUser);
@@ -105,7 +77,7 @@ userRouter.put(
 userRouter.put(
   "/profile/avatar/:id",
   authenticate,
-  uploadAvatarParser.single("profilePic"),
+  upload.single("profilePic"),
   updateAvatar,
 );
 

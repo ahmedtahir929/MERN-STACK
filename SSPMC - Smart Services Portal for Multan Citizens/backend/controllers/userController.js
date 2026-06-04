@@ -1,4 +1,6 @@
 import jwt from "jsonwebtoken";
+import User from '../models/User.js';
+import { uploadBufferToCloudinary } from '../utils/cloudinaryUpload.js';
 
 // Handles new user registration and initial validation
 export const createUser = async (req, res) => {
@@ -201,68 +203,36 @@ export const updatePassword = async (req, res) => {
   }
 };
 
-import fs from 'fs';
-import path from 'path';
-import User from '../models/User.js';
-
 export const updateAvatar = async (req, res) => {
   try {
-    // 1. Guard check: Verify that Multer successfully caught and processed a file
     if (!req.file) {
       return res.status(400).json({ message: "No image file provided." });
     }
 
-    // 2. Guard check: Verify that req.user was populated by your authenticate middleware
     if (!req.user || !req.user.id) {
       return res.status(401).json({ message: "Unauthorized. Session payload missing." });
     }
 
     const userId = req.user.id;
-
-    // 3. Find the targeted user record document
     const user = await User.findById(userId);
     if (!user) {
-      if (fs.existsSync(req.file.path)) {
-        fs.unlinkSync(req.file.path);
-      }
       return res.status(404).json({ message: "User account profile not found." });
     }
 
-    // 4. Housekeeping: Delete old profile pictures safely from static root paths
-    if (user.profilePic && user.profilePic.startsWith('/uploads/')) {
-      // Reconstruct absolute path safely matching your exact static directory pipeline
-      const absoluteOldPath = path.join(process.cwd(), 'public', user.profilePic);
-      
-      if (fs.existsSync(absoluteOldPath)) {
-        try {
-          fs.unlinkSync(absoluteOldPath);
-        } catch (unlinkErr) {
-          console.error("Failed to delete outdated file pointer asset:", unlinkErr);
-        }
-      }
-    }
+    const uploadResult = await uploadBufferToCloudinary(req.file.buffer, 'sspmc/avatars');
 
-    // FIXED: Formatted to match your app's standard static directory schema path structure
-    const relativeWebPath = `/uploads/${req.file.filename}`;
-
-    // 5. Commit modifications back to MongoDB
-    user.profilePic = relativeWebPath;
+    user.profilePic = uploadResult.secure_url;
     await user.save();
 
     res.status(200).json({
       message: "Avatar processed and uploaded successfully!",
-      profilePic: relativeWebPath
+      profilePic: uploadResult.secure_url,
     });
-
   } catch (error) {
     console.error("Critical Profile Picture Sync Crash:", error);
-    if (req.file && fs.existsSync(req.file.path)) {
-      fs.unlinkSync(req.file.path);
-    }
-    
-    res.status(500).json({ 
-      message: "Server exception handling image attachment update.", 
-      error: error.message 
+    res.status(500).json({
+      message: "Server exception handling image attachment update.",
+      error: error.message,
     });
   }
 };

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import axios from 'axios';
+import api from '../utils/apiConfig';
 
 const OauthSuccess = () => {
   const [searchParams] = useSearchParams();
@@ -12,8 +12,8 @@ const OauthSuccess = () => {
       // Store token securely in local storage
       localStorage.setItem('token', token);
 
-      // Set default headers for all subsequent Axios requests instantly
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      // Set default headers for all subsequent requests instantly
+      api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
       // Redirect user to the actual home page instead of a non-existent dashboard
       navigate('/home');
