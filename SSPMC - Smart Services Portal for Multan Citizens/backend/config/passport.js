@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const CALLBACK_BASE_URL = (process.env.GOOGLE_CALLBACK_URL || process.env.BACKEND_URL || `http://localhost:${process.env.PORT}`).replace(/\/$/, '');
+const CALLBACK_BASE_URL = (process.env.BACKEND_URL || `http://localhost:${process.env.PORT}`).replace(/\/$/, '');
 
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,

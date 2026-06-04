@@ -18,7 +18,7 @@ import {
 } from "../controllers/userController.js";
 
 const userRouter = express.Router();
-const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:5173';
+const FRONTEND_URL = (process.env.FRONTEND_URL || 'http://localhost:5173').replace(/\/$/, '');
 
 // post endpoints
 userRouter.post("/signup", createUser);

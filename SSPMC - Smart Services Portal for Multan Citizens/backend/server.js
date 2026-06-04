@@ -22,11 +22,12 @@ connectDB();
 const app = express();
 
 // Configure CORS cleanly for Axios communication
+const normalizedFrontendUrl = process.env.FRONTEND_URL?.replace(/\/$/, '');
 const allowedOrigins = [
     'http://localhost:5173', // Local frontend during development
     'https://sspmc.vercel.app', // Vercel deployed frontend
     'https://sspmc.onrender.com', // Render hosted frontend if used
-    process.env.FRONTEND_URL,
+    normalizedFrontendUrl,
 ].filter(Boolean);
 app.use(cors({
     origin: (origin, callback) => {
