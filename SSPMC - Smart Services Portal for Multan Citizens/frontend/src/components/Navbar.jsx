@@ -4,7 +4,7 @@ import { useTheme } from '../ContextAPIs/ThemeContext';
 import { FiSun, FiMoon, FiMenu, FiX } from 'react-icons/fi';
 import { jwtDecode } from 'jwt-decode';
 
-import axios from 'axios';
+import api, { getImageUrl } from '../utils/apiConfig';
 
 const Navbar = () => {
   const { theme, toggleTheme } = useTheme();
@@ -28,9 +28,7 @@ const Navbar = () => {
 
         if (!userId) return;
 
-        const response = await axios.get(`http://localhost:4000/api/users/profile/${userId}`, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
+        const response = await api.get(`/api/users/profile/${userId}`);
         setProfile(response.data);
       } catch (err) {
         console.error("Navbar identity extraction fault:", err);
@@ -74,9 +72,7 @@ const Navbar = () => {
     }
 
     if (profile?.profilePic) {
-      const imageSource = profile.profilePic.startsWith('data:') || profile.profilePic.startsWith('http')
-        ? profile.profilePic
-        : `http://localhost:4000${profile.profilePic}`;
+      const imageSource = getImageUrl(profile.profilePic);
       return (
         <img 
           src={imageSource} 

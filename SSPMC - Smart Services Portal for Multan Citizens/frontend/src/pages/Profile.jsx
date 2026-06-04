@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
-import axios from 'axios';
 import { FiCamera, FiLock, FiTrash2, FiLogOut } from 'react-icons/fi';
 import { toast } from 'react-toastify';
 
+import api, { getImageUrl } from '../utils/apiConfig';
 import UpdateUserProfileForm from '../components/UpdateUserProfileForm';
 import ServicesAddedByUser from '../components/ServicesAddedByUser';
 
@@ -61,14 +61,14 @@ const Profile = () => {
 
         setUserId(currentUserId);
 
-        const profileRes = await axios.get(
-          `http://localhost:4000/api/users/profile/${currentUserId}`,
+        const profileRes = await api.get(
+          `/api/users/profile/${currentUserId}`,
         );
         const userData = profileRes.data;
         setUser(userData);
 
-        const servicesRes = await axios.get(
-          'http://localhost:4000/api/services',
+        const servicesRes = await api.get(
+          '/api/services',
         );
         const allServices = servicesRes.data;
 
@@ -103,8 +103,8 @@ const Profile = () => {
     imgPayload.append('profilePic', file);
 
     try {
-      const response = await axios.put(
-        `http://localhost:4000/api/users/profile/avatar/${userId}`,
+      const response = await api.put(
+        `/api/users/profile/avatar/${userId}`,
         imgPayload,
         { 
           headers: { 
@@ -127,8 +127,8 @@ const Profile = () => {
     if (!getValidToken() || !userId) return;
 
     try {
-      const response = await axios.put(
-        `http://localhost:4000/api/users/profile/update/${userId}`,
+      const response = await api.put(
+        `/api/users/profile/update/${userId}`,
         updatedFields,
       );
 
@@ -158,8 +158,8 @@ const Profile = () => {
     }
 
     try {
-      await axios.put(
-        `http://localhost:4000/api/users/profile/update/password/${userId}`,
+      await api.put(
+        `/api/users/profile/update/password/${userId}`,
         securityForm,
       );
       toast.success('Security parameters refreshed cleanly!');
@@ -178,8 +178,8 @@ const Profile = () => {
     if (!confirmationGate) return;
 
     try {
-      await axios.delete(
-        `http://localhost:4000/api/services/delete/service/${serviceId}`,
+      await api.delete(
+        `/api/services/delete/service/${serviceId}`,
       );
       setMyServices((prev) => prev.filter((item) => item._id !== serviceId));
       toast.success('Public service registry entry removed cleanly.');
@@ -197,7 +197,7 @@ const Profile = () => {
     );
     if (confirmLogout) {
       localStorage.removeItem('token');
-      delete axios.defaults.headers.common['Authorization'];
+      delete api.defaults.headers.common['Authorization'];
       toast.info('Logged out safely. Continuing session as Guest.');
       navigate('/home');
     }
@@ -211,11 +211,11 @@ const Profile = () => {
     );
     if (doubleCheck) {
       try {
-        await axios.delete(
-          `http://localhost:4000/api/users/profile/delete/${userId}`,
+        await api.delete(
+          `/api/users/profile/delete/${userId}`,
         );
         localStorage.removeItem('token');
-        delete axios.defaults.headers.common['Authorization'];
+        delete api.defaults.headers.common['Authorization'];
         toast.success('Account successfully deactivated.');
         navigate('/login');
       } catch (err) {
@@ -273,8 +273,8 @@ const Profile = () => {
                     src={
                       user.profilePic.startsWith('data:') ||
                       user.profilePic.startsWith('http')
-                        ? user.profilePic
-                        : `http://localhost:4000${user.profilePic}`
+                                ? user.profilePic
+                        : getImageUrl(user.profilePic)
                     }
                     alt="Profile Avatar"
                     className="w-full h-full object-cover"

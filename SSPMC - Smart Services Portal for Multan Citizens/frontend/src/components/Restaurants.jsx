@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { FaStar, FaEdit } from 'react-icons/fa';
 import EmptyServicesState from './EmptyServicesState';
+import { getImageUrl } from '../utils/apiConfig';
 
 const Restaurants = ({ items, onEdit }) => {
   const location = useLocation();
@@ -31,7 +32,7 @@ const Restaurants = ({ items, onEdit }) => {
     <div className="w-full space-y-4">
       {items.map((item) => {
         const cardImageSrc = item.imageUpload
-          ? `http://localhost:4000${item.imageUpload}`
+          ? getImageUrl(item.imageUpload)
           : item.imageUrl || 'https://via.placeholder.com/400x200?text=No+Image';
 
         const locationText = item.location?.address || item.loc || 'Address not registered';

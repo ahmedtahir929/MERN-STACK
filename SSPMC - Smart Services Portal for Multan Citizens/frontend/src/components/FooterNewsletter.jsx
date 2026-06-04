@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../utils/apiConfig';
 import { toast } from 'react-toastify';
 
 const FooterNewsletter = () => {
@@ -17,8 +17,8 @@ const FooterNewsletter = () => {
     try {
       setSubmitting(true);
 
-      const response = await axios.post(
-        'http://localhost:4000/api/newsletter/subscribe',
+      const response = await api.post(
+        '/api/newsletter/subscribe',
         {
           email: email.trim(),
         },
