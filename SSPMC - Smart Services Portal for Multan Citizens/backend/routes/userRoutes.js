@@ -18,6 +18,7 @@ import {
 } from "../controllers/userController.js";
 
 const userRouter = express.Router();
+const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:5173';
 
 // post endpoints
 userRouter.post("/signup", createUser);
@@ -37,7 +38,7 @@ userRouter.get(
 userRouter.get(
   "/auth/google/callback",
   passport.authenticate("google", {
-    failureRedirect: `http://localhost:5173/login`,
+    failureRedirect: `${FRONTEND_URL}/login`,
     session: false,
   }),
   (req, res) => {
@@ -49,7 +50,7 @@ userRouter.get(
     );
 
     // Redirect the user back to the frontend dashboard, appending the JWT token to the URL string
-    res.redirect(`http://localhost:5173/oauth-success?token=${token}`);
+    res.redirect(`${FRONTEND_URL}/oauth-success?token=${token}`);
   },
 );
 userRouter.get("/user-list", authenticate, authorize("admin"), getUsers);
