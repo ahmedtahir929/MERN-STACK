@@ -54,7 +54,7 @@ const SignupForm = () => {
   return (
     <div className="w-full">
       {error && (
-        <div className="mb-4 bg-red-50 text-red-600 text-sm p-3 rounded-md border-l-4 border-red-500 font-medium">
+        <div className="mb-4 bg-red-500/10 text-red-500 text-sm p-3 rounded-md border-l-4 border-red-500 font-medium">
           {error}
         </div>
       )}
@@ -62,7 +62,10 @@ const SignupForm = () => {
       <form onSubmit={handleLocalSignUp} className="space-y-4">
         <div className="grid grid-cols-2 gap-3">
           <div>
-            <label className="block text-xs font-semibold text-gray-600 mb-1">
+            <label 
+              className="block text-xs font-semibold mb-1"
+              style={{ color: 'var(--muted)' }}
+            >
               First Name
             </label>
             <input
@@ -71,12 +74,20 @@ const SignupForm = () => {
               required
               value={formData.firstname}
               onChange={handleInputChange}
-              className="w-full p-3 border border-gray-200 rounded-md text-sm bg-gray-50 focus:outline-none focus:border-emerald-500 focus:bg-white focus:ring-3 focus:ring-emerald-500/15 transition-all"
+              className="w-full p-3 rounded-md text-sm focus:outline-none focus:border-emerald-500 focus:ring-3 focus:ring-emerald-500/15 transition-all"
+              style={{
+                backgroundColor: 'var(--bg)',
+                border: '1px solid var(--border)',
+                color: 'var(--text)'
+              }}
               placeholder="Zohaib"
             />
           </div>
           <div>
-            <label className="block text-xs font-semibold text-gray-600 mb-1">
+            <label 
+              className="block text-xs font-semibold mb-1"
+              style={{ color: 'var(--muted)' }}
+            >
               Last Name
             </label>
             <input
@@ -85,14 +96,22 @@ const SignupForm = () => {
               required
               value={formData.lastname}
               onChange={handleInputChange}
-              className="w-full p-3 border border-gray-200 rounded-md text-sm bg-gray-50 focus:outline-none focus:border-emerald-500 focus:bg-white focus:ring-3 focus:ring-emerald-500/15 transition-all"
+              className="w-full p-3 rounded-md text-sm focus:outline-none focus:border-emerald-500 focus:ring-3 focus:ring-emerald-500/15 transition-all"
+              style={{
+                backgroundColor: 'var(--bg)',
+                border: '1px solid var(--border)',
+                color: 'var(--text)'
+              }}
               placeholder="Hassan"
             />
           </div>
         </div>
 
         <div>
-          <label className="block text-xs font-semibold text-gray-600 mb-1">
+          <label 
+            className="block text-xs font-semibold mb-1"
+            style={{ color: 'var(--muted)' }}
+          >
             Email Address
           </label>
           <input
@@ -101,13 +120,21 @@ const SignupForm = () => {
             required
             value={formData.email}
             onChange={handleInputChange}
-            className="w-full p-3 border border-gray-200 rounded-md text-sm bg-gray-50 focus:outline-none focus:border-emerald-500 focus:bg-white focus:ring-3 focus:ring-emerald-500/15 transition-all"
+            className="w-full p-3 rounded-md text-sm focus:outline-none focus:border-emerald-500 focus:ring-3 focus:ring-emerald-500/15 transition-all"
+            style={{
+              backgroundColor: 'var(--bg)',
+              border: '1px solid var(--border)',
+              color: 'var(--text)'
+            }}
             placeholder="citizen@gmail.com"
           />
         </div>
 
         <div>
-          <label className="block text-xs font-semibold text-gray-600 mb-1">
+          <label 
+            className="block text-xs font-semibold mb-1"
+            style={{ color: 'var(--muted)' }}
+          >
             Password
           </label>
           <input
@@ -116,13 +143,21 @@ const SignupForm = () => {
             required
             value={formData.password}
             onChange={handleInputChange}
-            className="w-full p-3 border border-gray-200 rounded-md text-sm bg-gray-50 focus:outline-none focus:border-emerald-500 focus:bg-white focus:ring-3 focus:ring-emerald-500/15 transition-all"
+            className="w-full p-3 rounded-md text-sm focus:outline-none focus:border-emerald-500 focus:ring-3 focus:ring-emerald-500/15 transition-all"
+            style={{
+              backgroundColor: 'var(--bg)',
+              border: '1px solid var(--border)',
+              color: 'var(--text)'
+            }}
             placeholder="••••••••"
           />
         </div>
 
         <div>
-          <label className="block text-xs font-semibold text-gray-600 mb-1">
+          <label 
+            className="block text-xs font-semibold mb-1"
+            style={{ color: 'var(--muted)' }}
+          >
             Confirm Password
           </label>
           <input
@@ -131,7 +166,12 @@ const SignupForm = () => {
             required
             value={formData.confirmPassword}
             onChange={handleInputChange}
-            className="w-full p-3 border border-gray-200 rounded-md text-sm bg-gray-50 focus:outline-none focus:border-emerald-500 focus:bg-white focus:ring-3 focus:ring-emerald-500/15 transition-all"
+            className="w-full p-3 rounded-md text-sm focus:outline-none focus:border-emerald-500 focus:ring-3 focus:ring-emerald-500/15 transition-all"
+            style={{
+              backgroundColor: 'var(--bg)',
+              border: '1px solid var(--border)',
+              color: 'var(--text)'
+            }}
             placeholder="••••••••"
           />
         </div>
@@ -145,7 +185,10 @@ const SignupForm = () => {
         </button>
       </form>
 
-      <div className="flex items-center text-center my-5 text-gray-400 text-sm before:flex-1 before:border-b before:border-gray-200 before:mr-3 after:flex-1 after:border-b after:border-gray-200 after:ml-3">
+      <div 
+        className="flex items-center text-center my-5 text-sm before:flex-1 before:border-b before:mr-3 after:flex-1 after:border-b after:ml-3"
+        style={{ color: 'var(--muted)', '--tw-border-opacity': '1', borderColor: 'var(--border)' }}
+      >
         or
       </div>
 

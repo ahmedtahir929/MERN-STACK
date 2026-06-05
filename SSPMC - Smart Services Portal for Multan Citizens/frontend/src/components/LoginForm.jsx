@@ -22,10 +22,7 @@ const LoginForm = () => {
       );
       if (response.data.token) {
         localStorage.setItem('token', response.data.token);
-        api.defaults.headers.common['Authorization'] =
-          `Bearer ${response.data.token}`;
-        
-        // Fixed path targeting your application routes architecture layout
+        api.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
         navigate('/home'); 
       }
     } catch (err) {
@@ -38,14 +35,17 @@ const LoginForm = () => {
   return (
     <div className="w-full">
       {error && (
-        <div className="mb-4 bg-red-50 text-red-600 text-sm p-3 rounded-md border-l-4 border-red-500 font-medium">
+        <div className="mb-4 bg-red-500/10 text-red-500 text-sm p-3 rounded-md border-l-4 border-red-500 font-medium">
           {error}
         </div>
       )}
 
       <form onSubmit={handleLocalLogin} className="space-y-4">
         <div>
-          <label className="block text-xs font-semibold text-gray-600 mb-1">
+          <label 
+            className="block text-xs font-semibold mb-1"
+            style={{ color: 'var(--muted)' }}
+          >
             Email Address
           </label>
           <input
@@ -53,13 +53,21 @@ const LoginForm = () => {
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full p-3 border border-gray-200 rounded-md text-sm bg-gray-50 focus:outline-none focus:border-emerald-500 focus:bg-white focus:ring-3 focus:ring-emerald-500/15 transition-all"
+            className="w-full p-3 rounded-md text-sm focus:outline-none focus:border-emerald-500 focus:ring-3 focus:ring-emerald-500/15 transition-all"
+            style={{
+              backgroundColor: 'var(--bg)',
+              border: '1px solid var(--border)',
+              color: 'var(--text)'
+            }}
             placeholder="citizen@gmail.com"
           />
         </div>
 
         <div>
-          <label className="block text-xs font-semibold text-gray-600 mb-1">
+          <label 
+            className="block text-xs font-semibold mb-1"
+            style={{ color: 'var(--muted)' }}
+          >
             Password
           </label>
           <input
@@ -67,7 +75,12 @@ const LoginForm = () => {
             required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full p-3 border border-gray-200 rounded-md text-sm bg-gray-50 focus:outline-none focus:border-emerald-500 focus:bg-white focus:ring-3 focus:ring-emerald-500/15 transition-all"
+            className="w-full p-3 rounded-md text-sm focus:outline-none focus:border-emerald-500 focus:ring-3 focus:ring-emerald-500/15 transition-all"
+            style={{
+              backgroundColor: 'var(--bg)',
+              border: '1px solid var(--border)',
+              color: 'var(--text)'
+            }}
             placeholder="••••••••"
           />
         </div>
@@ -81,7 +94,10 @@ const LoginForm = () => {
         </button>
       </form>
 
-      <div className="flex items-center text-center my-5 text-gray-400 text-sm before:flex-1 before:border-b before:border-gray-200 before:mr-3 after:flex-1 after:border-b after:border-gray-200 after:ml-3">
+      <div 
+        className="flex items-center text-center my-5 text-sm before:flex-1 before:border-b before:mr-3 after:flex-1 after:border-b after:ml-3"
+        style={{ color: 'var(--muted)', '--tw-border-opacity': '1', borderColor: 'var(--border)' }}
+      >
         or
       </div>
 
