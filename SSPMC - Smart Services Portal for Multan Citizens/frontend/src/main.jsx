@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import { ThemeProvider } from './ContextAPIs/ThemeContext.jsx';
 import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from "@vercel/speed-insights/react"
 
 import App from './App.jsx';
 import api from './utils/apiConfig';
@@ -22,6 +23,7 @@ createRoot(document.getElementById('root')).render(
       <ThemeProvider>
         <App />
         <Analytics />
+        <SpeedInsights />
         <ToastContainer 
           position="top-right"
           autoClose={3000}
