@@ -80,7 +80,7 @@ const Services = () => {
     };
 
     fetchAllServices();
-  }, [location.pathname]);
+  }, []);
 
   const handleAddServiceClick = () => {
     const token = localStorage.getItem('token');

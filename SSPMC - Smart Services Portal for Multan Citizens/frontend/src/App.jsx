@@ -12,7 +12,7 @@ import Contact from './pages/Contact';
 import Profile from './pages/Profile';
 import NotFound from './pages/NotFound';
 
-// New Authentication Pages
+// Authentication Pages
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import OauthSuccess from './pages/OauthSuccess';
